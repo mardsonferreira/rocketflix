@@ -15,11 +15,18 @@ export function Home() {
     const [loading, setLoading] = useState(false);
     const [movie, setMovie] = useState({} as Movie);
 
+    function getRandomID() {
+        const min = 1;
+        const max = 10000;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
     async function getMovieSuggestion() {
         setLoading(true);
+        const movieID = getRandomID();
         try {
             const { data } = await api.get(
-                `110?${process.env.REACT_APP_API_KEY}&${process.env.REACT_APP_LANGUAGE}`
+                `${movieID}?${process.env.REACT_APP_API_KEY}&${process.env.REACT_APP_LANGUAGE}`
             );
 
             setMovie({
